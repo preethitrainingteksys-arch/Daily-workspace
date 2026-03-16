@@ -1,59 +1,49 @@
-package LMSwithlist;
-
-import java.util.LinkedList;
-import java.util.List;
-
-public class Book {
-	private int id;
-	private String Title;
-	private float price;
-	private String authors;
-	
-	public int getId() {
-		return id;
+package lmsWithList;
+class Book {
+	String id;
+    String title;
+	float price;
+    String author;
+    
+    public Book(String id, String title, float price, String author) {
+		this.id = id;
+		this.title = title;
+		this.price = price;
+		this.author = author;
+		this.status = STATUS.AVAILABLE;
+	}
+	private STATUS status;
+    public STATUS getStatus() {
+		return status;
+	}
+	public void setStatus(STATUS status) {
+		this.status = status;
 	}
 
-
-
-	public String getTitle() {
-		return Title;
-	}
-
-
-
-	public float getPrice() {
+    public float getPrice() {
 		return price;
 	}
-
-
-
-	public String getAuthors() {
-		return authors;
+	public void setPrice(float price) {
+		this.price = price;
 	}
-	
-	
-	public Book(int id,String Title,float price,String authors)
-	{
-		this.id=id;
-		this.Title=Title;
-		this.price=price;
-		this.authors=authors;
+	public String getId() {
+		return id;
 	}
-	
-	
+	public String getTitle() {
+		return title;
+	}
+	public String getAuthor() {
+		return author;
+	}
 	@Override
-	public String toString()
-	{
-		String json="""
-				{
-				"id":"%d",
-				"Title":"%s",
-				"price":"%.2f",
-				"authors":"%s"
-				}
-				""".formatted(id,Title,price,authors);
-		return json;
-		
+	public String toString() {
+		String result = "";
+//				"""
+//				ID: %s
+//				Book: %s
+//				Author: %s
+//				Price: %.2f
+//				Status: %s""".formatted(id, title, author, price, status);
+		return result;
 	}
-	
 }
