@@ -1,4 +1,4 @@
-package lmsWithList;
+package LMSwithlist;
 class Book {
 	String id;
     String title;

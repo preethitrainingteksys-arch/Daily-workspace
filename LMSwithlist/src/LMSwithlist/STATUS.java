@@ -5,4 +5,7 @@ public class STATUS {
 		AVAILABLE, BOOKED, DAMAGED
 	}
 
+	public static final STATUS AVAILABLE = null;
+	public static final STATUS BOOKED = null;
+
 }
