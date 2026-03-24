@@ -1,7 +1,10 @@
 package log.analyzer;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LogAnalyzer {
 
@@ -9,35 +12,22 @@ public class LogAnalyzer {
 
         Map<String, Integer> map = new HashMap<>();
 
-        String fileName = "system.log";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader("src/main/resources/system.log"))) {
 
             String line;
 
-            // Read file line by line
-            while ((line = br.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
 
-                // Split log type and message
-                String[] parts = line.split(":");
-
-                if (parts.length > 0) {
-                    String logType = parts[0].trim();
-
-                    // Count occurrences
-                    map.put(logType, map.getOrDefault(logType, 0) + 1);
+                String[] logs = line.split(":");
+                if (logs.length > 0) {
+                    String logLevel = logs[0].trim();
+                    map.put(logLevel, map.get(logLevel) + 1);
                 }
             }
-
-        } catch (FileNotFoundException e) {
-            System.out.println("Error: Log file not found!");
         } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
+            System.out.println("File not found");
         }
-
-        // Print results
-        for (Map.Entry<String, Integer> entry : map.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
+        map.forEach((key, value) -> System.out.println(key + ": " + value));
     }
 }
