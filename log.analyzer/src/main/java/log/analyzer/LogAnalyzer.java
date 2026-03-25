@@ -10,24 +10,42 @@ public class LogAnalyzer {
 
     public static void main(String[] args) {
 
-        Map<String, Integer> map = new HashMap<>();
-
         try (BufferedReader reader = new BufferedReader(
                 new FileReader("src/main/resources/system.log"))) {
 
-            String line;
+            Map<String, Integer> result = analyzeLogs(reader);
 
+            result.forEach((key, value) ->
+                    System.out.println(key + ": " + value));
+
+        } catch (IOException e) {
+            System.out.println("File not found");
+        }
+    }
+
+    public static Map<String, Integer> analyzeLogs(BufferedReader reader) {
+
+        Map<String, Integer> map = new HashMap<>();
+        String line;
+
+        try {
             while ((line = reader.readLine()) != null) {
+
+                if (line.trim().isEmpty()) continue;
 
                 String[] logs = line.split(":");
                 if (logs.length > 0) {
                     String logLevel = logs[0].trim();
-                    map.put(logLevel, map.get(logLevel) + 1);
+
+                    map.put(logLevel, map.getOrDefault(logLevel, 0) + 1);
+
+                  
                 }
             }
         } catch (IOException e) {
-            System.out.println("File not found");
+            System.out.println("Error reading file");
         }
-        map.forEach((key, value) -> System.out.println(key + ": " + value));
+
+        return map;
     }
 }
