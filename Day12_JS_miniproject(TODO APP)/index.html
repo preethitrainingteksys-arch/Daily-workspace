@@ -3,20 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo App</title>
-    <link rel="stylesheet" href="styles.css"/>;
+    <title>ToDo App</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="app"> 
-    <h2> Todo App</h2>
-    <div class ="input.group">
-            
-    <input type="text" id="todo-input" placeholder="Enter task">
-    <button onclick="addTodo()">Add</button>
-    </div>
-    <ul id="todo-list"></ul>
+
+<div class="app">
+    <h2>ToDo App</h2>
+
+   <input type="text" onkeypress="return event.key !== '-'" onkeyup="validate()" id="todo-input" placeholder="Enter Task...">
+
+    <input type="time" id="time-input">
+    <input type="datetime-local" value="2026-03-15T19:30">
     
- </div>
+    
+    <div class="input-group">
+        <label><input type="radio" name="priority" value="urgent"> Urgent</label>
+        <label><input type="radio" name="priority" value="important"> Important</label>
+    </div>
+
+    <button onclick="addTodo()">Add</button>
+    <button onclick="sortTodo()">Sort</button>
+    <div class="error" id="error">Name is Mandatory</div>
+    <div class="lists">
+        <div>
+            <p class="title urgent-title">Urgent</p>
+            <ul id="urgent-list"></ul>
+        </div>
+        <div>
+            <p class="title important-title">Important</p>
+            <ul id="important-list"></ul>
+        </div>
+    </div>
+
+  
+</div>
+
+<script src="app.js"></script>
 </body>
-<script src="app.js"> </script>;
 </html>
