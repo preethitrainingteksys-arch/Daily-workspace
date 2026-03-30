@@ -7,7 +7,7 @@ body {
 }
 
 .app {
-    background-color: plum;
+    background-color: rgb(243, 233, 243);
     padding: 20px;
     width: 300px;
     border-radius: 10px;
@@ -16,7 +16,7 @@ body {
 
 h2 {
     margin-bottom: 15px;
-    color: white;
+    color: rgb(26, 25, 25);
 }
 
 .input-group {
@@ -78,3 +78,10 @@ li {
 {
     color: crimson;
 }
+.title
+{
+    font-weight: bold;
+    margin-top: 10px;
+
+}
+

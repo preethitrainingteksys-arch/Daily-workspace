@@ -7,8 +7,7 @@ function addTodo() {
     const text = input.value.trim();
     const time = document.getElementById('time-input').value;
 
-    const selected = document.querySelector('input[name="priority"]:checked');
-    const priority = selected ? selected.value : "important";
+    const priority = document.getElementById('priority').value;
 
     if (text === '') return;
 
@@ -30,8 +29,7 @@ function sortTodo() {
     console.log(todos);
     renderTodos();
 }
-saveTodos();
-renderTodos();
+
 
 
 
@@ -44,7 +42,7 @@ function deleteTodo(index) {
     saveTodos();
     renderTodos();
 }
-function validate() { 
+function validate(event) { 
     errorDiv.style.display = (event.target.value.trim() !== '') ? 'none' : 'inline';
 }
 
@@ -54,15 +52,26 @@ function toggleComplete(index) {
     saveTodos();
     renderTodos();
 }
+function editTodo(index) {
+    const newText = prompt("Edit your task:", todos[index].text);
+
+    if (newText !== null && newText.trim() !== "") {
+        todos[index].text = newText.trim();
+        saveTodos();
+        renderTodos();
+    }
+}
 
 
 function renderTodos() {
-    const urgentList = document.getElementById('urgent-list');
-    const importantList = document.getElementById('important-list');
+    const highList = document.getElementById('high-list');
+    const mediumList = document.getElementById('medium-list');
+    const lowList=document.getElementById('low-list');
 
-   urgentList.innerHTML="";
-   importantList.innerHTML="";
-
+   highList.innerHTML="";
+  mediumList.innerHTML="";
+  lowList.innerHTML=""
+;
     todos.forEach((todo, index) => {
         const li = document.createElement('li');
 
@@ -77,16 +86,23 @@ function renderTodos() {
         <div>
             <button class="YES" onclick="toggleComplete(${index})">✔</button>
             <button class="NO" onclick="deleteTodo(${index})">✖</button>
+            <button onclick="editTodo(${index})">EditTask</button>
         </div>
         `;
 
-        if (todo.priority === "urgent") {
-            li.style.borderLeft = "red";
-            urgentList.appendChild(li);
-        } else {
-            li.style.borderLeft = " orange";
-            importantList.appendChild(li);
+        if (todo.priority === "high") {
+            li.style.borderLeft = "5px solid red";
+            highList.appendChild(li);
+        } else if(todo.priority==="medium") {
+            li.style.borderLeft = "5px solid orange";
+            mediumList.appendChild(li);
         }
+            else{
+                li.style.borderLeft="5px solid green";
+                lowList.appendChild(li);
+
+            }
+        
     });
 }
 

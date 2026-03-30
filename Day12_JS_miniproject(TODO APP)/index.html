@@ -11,15 +11,20 @@
 <div class="app">
     <h2>ToDo App</h2>
 
-   <input type="text" onkeypress="return event.key !== '-'" onkeyup="validate()" id="todo-input" placeholder="Enter Task...">
+   <input type="text" onkeypress="return event.key !== '-'" onkeyup="validate(event)" id="todo-input" placeholder="Enter Task...">
 
     <input type="time" id="time-input">
     <input type="datetime-local" value="2026-03-15T19:30">
     
     
     <div class="input-group">
-        <label><input type="radio" name="priority" value="urgent"> Urgent</label>
-        <label><input type="radio" name="priority" value="important"> Important</label>
+        <label for="priority">Choose a priority:</label>
+
+        <select id="priority">
+        <option value="high">High Priority</option>
+        <option value="medium">Medium Priority</option>
+        <option value="low">Low Priority</option>
+         </select>
     </div>
 
     <button onclick="addTodo()">Add</button>
@@ -27,12 +32,16 @@
     <div class="error" id="error">Name is Mandatory</div>
     <div class="lists">
         <div>
-            <p class="title urgent-title">Urgent</p>
-            <ul id="urgent-list"></ul>
+            <p class="title">High Priority</p>
+            <ul id="high-list"></ul>
         </div>
         <div>
-            <p class="title important-title">Important</p>
-            <ul id="important-list"></ul>
+            <p class="title">Medium Priority</p>
+            <ul id="medium-list"></ul>
+        </div>
+        <div>
+            <p class="title">Low Priority</p>
+            <ul id="low-list"></ul>
         </div>
     </div>
 
