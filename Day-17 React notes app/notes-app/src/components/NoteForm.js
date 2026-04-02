@@ -2,15 +2,18 @@ import {useState} from "react";
 function NoteForm({addNote})
 {
     const [note,setNote]=useState({
-        title:"my note",
-        status:"created"
+        title:"",
+        status:"open"
     });
     const handleSubmit=(e)=>
     {
         e.preventDefault();
        // if(!note.trim()) return;
         addNote(note);
-       // setNote({});
+       setNote({
+        title:"",
+        status:"open"
+       });
     };
     return (
         <form onSubmit={handleSubmit}>
@@ -21,10 +24,19 @@ function NoteForm({addNote})
                 ...note,
                 title:e.target.value})}
             />
-            <input value={note.status} onChange={(e)=>
+            <label>Status:
+            <input 
+            type="checkbox"
+            checked={note.status==="closed"}
+            onChange={(e)=>
                 setNote({
                     ...note,
-                    status:e.target.value})}/ >
+                    status:e.target.checked?"closed":"open"
+                })
+            }
+            />
+            </label>
+          
             
             <button>Add</button>
         </form>
