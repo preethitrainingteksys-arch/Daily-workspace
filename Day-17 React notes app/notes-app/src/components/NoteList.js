@@ -23,6 +23,7 @@ function NoteList({ notes, deleteNote }) {
               <th>Content</th>
               <th>Status</th>
               <th>Time</th>
+              <th>Priority</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -33,6 +34,7 @@ function NoteList({ notes, deleteNote }) {
                 <td>{note.content}</td>
                 <td>{note.status}</td>
                 <td>{note.time ? new Date(note.time).toLocaleString() : ""}</td>
+                <td>{note.priority}</td>
                 <td>
                   <button
                     onClick={() => {

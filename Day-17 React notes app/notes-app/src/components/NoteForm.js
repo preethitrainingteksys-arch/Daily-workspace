@@ -9,6 +9,7 @@ function NoteForm({ addNote }) {
     content: "",
     status: "open",
     time: "",
+    priority: 5,
   });
 
   const handleSubmit = async (e) => {
@@ -22,6 +23,7 @@ function NoteForm({ addNote }) {
         content: "",
         status: "open",
         time: "",
+        priority: 5,
       });
 
       navigate("/");
@@ -84,6 +86,19 @@ function NoteForm({ addNote }) {
           value={note.time}
           onChange={handleChange}
           required
+        />
+      </div>
+
+      <div style={{ marginBottom: "10px" }}>
+        <label>Priority: {note.priority}</label>
+        <br />
+        <input
+          type="range"
+          name="priority"
+          min="1"
+          max="10"
+          value={note.priority}
+          onChange={handleChange}
         />
       </div>
 
