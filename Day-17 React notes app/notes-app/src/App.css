@@ -4,7 +4,7 @@ body, html {
   padding: 0;
   height: 100%;
   font-family:'Times New Roman', Times, serif;
-  background-color: #ee63b4; /* soft pastel background */
+  background-color: #fcc8e6; 
 }
 
 .App {
@@ -12,16 +12,16 @@ body, html {
   min-height: 50vh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* header starts near top */
+  justify-content: flex-start; 
   align-items: center;
-  padding-top: 30px; /* spacing from top */
+  padding-top: 30px;
 }
 
 
 .App-header {
   width: 60%; 
   max-width: 280px; 
-  background-color: #f9c1c1; 
+  background-color: #66b1bb; 
   padding: 15px 10px; 
   color: #333;
   font-size: 1.6rem;
