@@ -1,45 +1,95 @@
-import {useState} from "react";
-function NoteForm({addNote})
-{
-    const [note,setNote]=useState({
-        title:"",
-        status:"open"
-    });
-    const handleSubmit=(e)=>
-    {
-        e.preventDefault();
-       // if(!note.trim()) return;
-        addNote(note);
-       setNote({
-        title:"",
-        status:"open"
-       });
-    };
-    return (
-        <form onSubmit={handleSubmit}>
-            <input
-            placeholder="Enter note"
-            value={note.title}
-            onChange={(e)=>setNote({
-                ...note,
-                title:e.target.value})}
-            />
-            <label>Status:
-            <input 
-            type="checkbox"
-            checked={note.status==="closed"}
-            onChange={(e)=>
-                setNote({
-                    ...note,
-                    status:e.target.checked?"closed":"open"
-                })
-            }
-            />
-            </label>
-          
-            
-            <button>Add</button>
-        </form>
-    );
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+function NoteForm({ addNote }) {
+  const navigate = useNavigate();
+
+  const [note, setNote] = useState({
+    title: "",
+    content: "",
+    status: "open",
+    time: "",
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const success = await addNote(note);
+
+    if (success) {
+      setNote({
+        title: "",
+        content: "",
+        status: "open",
+        time: "",
+      });
+
+      navigate("/");
+    } else {
+      alert("Note was not saved. Please check json-server.");
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNote((prevNote) => ({
+      ...prevNote,
+      [name]: value,
+    }));
+  };
+
+  return (
+    <form onSubmit={handleSubmit} style={{ marginTop: "20px", textAlign: "center" }}>
+      <div style={{ marginBottom: "10px" }}>
+        <input
+          type="text"
+          name="title"
+          value={note.title}
+          onChange={handleChange}
+          placeholder="Enter Note Title"
+          required
+        />
+      </div>
+
+      <div style={{ marginBottom: "10px" }}>
+        <textarea
+          name="content"
+          value={note.content}
+          onChange={handleChange}
+          placeholder="Enter Content"
+          required
+        />
+      </div>
+
+      <div style={{ marginBottom: "10px" }}>
+        <label>Status: </label>
+        <input
+          type="checkbox"
+          checked={note.status === "closed"}
+          onChange={() =>
+            setNote((prevNote) => ({
+              ...prevNote,
+              status: prevNote.status === "closed" ? "open" : "closed",
+            }))
+          }
+        />
+        Closed
+      </div>
+
+      <div style={{ marginBottom: "10px" }}>
+        <label>Select Date and Time: </label>
+        <input
+          type="datetime-local"
+          name="time"
+          value={note.time}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <button type="submit">Add Note</button>
+    </form>
+  );
 }
+
 export default NoteForm;
