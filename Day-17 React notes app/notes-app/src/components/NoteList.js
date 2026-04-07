@@ -1,86 +1,94 @@
 import React, { useState } from "react";
 
 function NoteList({ notes, deleteNote }) {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [search, setSearch] = useState("");
+  const [sortType, setSortType] = useState("");
 
-  const filteredNotes = notes.filter((note) =>
-    note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    note.content.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  let displayNotes = [...notes];
+
+  if (search !== "") {
+    displayNotes = displayNotes.filter((note) =>
+      note.title.toLowerCase().includes(search.toLowerCase())
+    );
+  }
+
+  if (sortType === "az") {
+    displayNotes.sort((a, b) => a.title.localeCompare(b.title));
+  }
+
+  if (sortType === "priority") {
+    displayNotes.sort((a, b) => Number(b.priority) - Number(a.priority));
+  }
 
   return (
-    <div style={{ marginTop: "20px", textAlign: "center" }}>
-      
-      <div style={{ marginBottom: "20px" }}>
-        <input
-          type="text"
-          placeholder="Search notes..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={{
-            padding: "8px",
-            width: "250px",
-            borderRadius: "5px",
-            border: "1px solid #ccc"
-          }}
-        />
-      </div>
+    <div style={{ textAlign: "center", marginTop: "20px" }}>
+      <input
+        type="text"
+        placeholder="Search title..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        style={{
+          padding: "8px",
+          borderRadius: "5px",
+          border: "1px solid gray",
+        }}
+      />
 
-      {/* when no notes exist */}
-      {notes.length === 0 ? (
-        <p>No notes available</p>
+      <br /><br />
 
-      /* when search has no result */
-      ) : filteredNotes.length === 0 ? (
-        <p>No matching notes found</p>
+      <button onClick={() => setSortType("az")}>Sort A-Z</button>
 
-      /* show table */
+      <button
+        onClick={() => setSortType("priority")}
+        style={{ marginLeft: "10px" }}
+      >
+        Sort by Priority
+      </button>
+
+      <br /><br />
+
+      {displayNotes.length === 0 ? (
+        <p>No notes found</p>
       ) : (
         <table
           border="1"
           cellPadding="10"
           style={{
-            margin: "20px auto",
+            margin: "auto",
+            backgroundColor: "white",
+            color: "black",
             borderCollapse: "collapse",
             width: "90%",
-            backgroundColor: "white",
-            color: "black"
+            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
           }}
         >
-          <thead>
+          <thead style={{ backgroundColor: "#ffe6e6" }}>
             <tr>
               <th>Title</th>
               <th>Content</th>
               <th>Status</th>
               <th>Time</th>
               <th>Priority</th>
-              <th>Action</th>
+              <th>Delete</th>
             </tr>
           </thead>
 
           <tbody>
-            {filteredNotes.map((note) => (
+            {displayNotes.map((note) => (
               <tr key={note.id}>
                 <td>{note.title}</td>
                 <td>{note.content}</td>
                 <td>{note.status}</td>
-                <td>
-                  {note.time
-                    ? new Date(note.time).toLocaleString()
-                    : ""}
-                </td>
+                <td>{note.time}</td>
                 <td>{note.priority}</td>
-
                 <td>
                   <button
-                    onClick={() => {
-                      const confirmDelete = window.confirm(
-                        "Are you sure you want to delete this note?"
-                      );
-
-                      if (confirmDelete) {
-                        deleteNote(note.id);
-                      }
+                    onClick={() => deleteNote(note.id)}
+                    style={{
+                      backgroundColor: "#ffb3b3",
+                      border: "none",
+                      padding: "5px 10px",
+                      cursor: "pointer",
                     }}
                   >
                     Delete
@@ -89,7 +97,6 @@ function NoteList({ notes, deleteNote }) {
               </tr>
             ))}
           </tbody>
-
         </table>
       )}
     </div>
