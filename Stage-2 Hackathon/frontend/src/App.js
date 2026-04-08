@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import QuestionDropdown from "./components/QuestionDropdown";
+import "./App.css";
 function App() {
   const [questions, setQuestions] = useState([]);
   const [formData, setFormData] = useState([]);//formdata=the value entered by the user in the frm
@@ -66,7 +67,7 @@ function App() {
   }
   const selectedQuestions = formData.map((item) => item.selectedQuestion);
   return (
-    <div>
+    <div className="container">
       <h2>Security Questions</h2>
       {formData.map((item, index) => {
         const availableQuestions = questions.filter(
@@ -77,8 +78,8 @@ function App() {
         return (
           <div
             key={index}
-            style={{ display: "flex", gap: "10px", marginBottom: "15px" }}
-          >
+            className="row">
+          
             <QuestionDropdown
               questions={availableQuestions}
               value={item.selectedQuestion}
