@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "question": "What is your mother's name?"
+  },
+  {
+    "id": 2,
+    "question": "What is CORS?"
+  },
+  {
+    "id": 3,
+    "question": "What is React?"
+  },
+  {
+    "id": 4,
+    "question": "What is JavaScript?"
+  }
+]
