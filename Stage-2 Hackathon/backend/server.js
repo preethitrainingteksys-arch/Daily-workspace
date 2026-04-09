@@ -9,9 +9,8 @@ app.use(express.json());
 const questionsPath = path.join(__dirname, "data", "questions.json");//here _dirname says the location od current fle
 const responsesPath = path.join(__dirname, "data", "responses.json");
 app.get("/questions", (request, response) => {
-  const questions = JSON.parse(
-    fs.readFileSync(questionsPath, "utf8")
-  );
+  const questions = JSON.parse(fs.readFileSync(questionsPath, "utf8"));
+  response.json(questions); 
   const responsesData = JSON.parse(
     fs.readFileSync(responsesPath, "utf8")
   );
