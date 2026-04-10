@@ -20,6 +20,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,7 @@ import java.util.List;
 import com.example.demo.entity.Order1;
 import com.example.demo.service.NoteService;
 import com.mysql.cj.x.protobuf.MysqlxCrud.Order;
+import java.util.Optional;
 
 import jakarta.validation.Valid;
 @RestController
@@ -38,6 +40,10 @@ import jakarta.validation.Valid;
 public class NoteController {
 	@Autowired
 	NoteService noteService;
+	@GetMapping("/{id}")
+	Optional<Order1> getOrderById(@PathVariable Integer id) {
+		return noteService.getOrderById(id);
+	}
 	@GetMapping
 	Iterable<Order1> getOrder(){
 			return noteService.getOrder();
