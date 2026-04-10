@@ -39,6 +39,11 @@ public class NoteService {
 		
 	}
 
+	public void deleteOrderById(Integer id) {
+		// TODO Auto-generated method stub
+		order1Repository.deleteById(id);
+	}
+
 	
 
 	

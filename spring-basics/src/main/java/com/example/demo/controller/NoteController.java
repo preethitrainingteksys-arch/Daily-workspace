@@ -18,6 +18,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,6 +56,13 @@ public class NoteController {
 	{
 		System.out.println(order1.getPrice());
 		return noteService.addOrder(order1);
+	}
+	@DeleteMapping("/{id}")
+	void deleteOrderById(@PathVariable Integer id)
+	{
+		noteService.deleteOrderById(id);
+		
+		
 	}
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
