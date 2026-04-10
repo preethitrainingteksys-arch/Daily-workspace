@@ -12,6 +12,7 @@
 // 
 
 package com.example.demo.controller;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +30,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import java.util.List;
 import com.example.demo.entity.Order1;
 import com.example.demo.service.NoteService;
 import com.mysql.cj.x.protobuf.MysqlxCrud.Order;
@@ -52,7 +52,7 @@ public class NoteController {
 	
 	
 	@PostMapping
-	Integer createOrder(@RequestBody @Valid Order1  order1)
+	Integer createOrder(@RequestBody @Valid Order1  order1)throws IOException
 	{
 		System.out.println(order1.getPrice());
 		return noteService.addOrder(order1);
