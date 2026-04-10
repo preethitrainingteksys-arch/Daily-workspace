@@ -22,29 +22,35 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
-
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import java.util.List;
 import com.example.demo.entity.Order1;
 import com.example.demo.service.NoteService;
+import com.mysql.cj.x.protobuf.MysqlxCrud.Order;
 
 import jakarta.validation.Valid;
 @RestController
+@RequestMapping("/order")
 public class NoteController {
 	@Autowired
 	NoteService noteService;
-	@GetMapping("/order")
-	Order1 getOrder()
-	{
-		return noteService.getOrder();
+	@GetMapping
+	Iterable<Order1> getOrder(){
+			return noteService.getOrder();
 	}
-	@PostMapping("/order")
+	
+	
+	@PostMapping
 	Integer createOrder(@RequestBody @Valid Order1  order1)
 	{
 		System.out.println(order1.getPrice());
 		return noteService.addOrder(order1);
 	}
+	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> handleValidationExceptions(
@@ -57,7 +63,14 @@ public class NoteController {
 	    });
 	    return errors;
 	}
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public String handleHttpMessageNotReadableException(HttpMessageNotReadableException ex)
+	{
+		return "Invalid-Please try again";
+	}
 	
 }
+
 
  
