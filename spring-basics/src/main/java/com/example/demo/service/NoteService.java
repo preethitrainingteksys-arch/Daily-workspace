@@ -24,6 +24,11 @@ public class NoteService {
 		return order;
 	}
 
+	public Integer addOrder(Order1 order1) {
+	
+		return 1;
+	}
+
 	
 
 	
