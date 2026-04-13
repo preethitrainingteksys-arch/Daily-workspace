@@ -6,11 +6,13 @@ import java.util.Map;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-	
+
 @ExceptionHandler(Exception.class)
 	public String handleExceptions(Exception ex)
 	{

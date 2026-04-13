@@ -1,14 +1,20 @@
 package com.example.demo.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
+//import jakarta.validation.constraints.NotNull;
+@Entity
 public class Note {
-	@NotNull
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
+//	@NotNull(message="id is mandatory")
 	private long id;
-	@NotBlank 
+	@NotBlank (message="title should not be blank")
 	String title;
-	@NotBlank
+	@NotBlank(message="content should not be blank")
 	String content;
 	public long getId() {
 		return id;
