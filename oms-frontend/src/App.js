@@ -1,5 +1,8 @@
 import { useState } from "react";
 import OrderForm from "./components/OrderForm";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import OrderHistory from "./components/OrderHistory";
+import NavigationBar from "./components/NavigationBar";
 import "./App.css";
 
 function App() {
@@ -12,8 +15,16 @@ function App() {
     setAddedItems([]);
   };
   return (
+    <Router>
     <div className="App">
       <h1>OMS Frontend</h1>
+      <NavigationBar/>
+      <Routes>
+        <Route
+        path="/"
+        element={
+          <>
+      
       <OrderForm 
       addedItems={addedItems}
       addItemToList={addItemToList}
@@ -26,13 +37,18 @@ function App() {
         <ul>
           {addedItems.map((itemObj, index) => (
             <li key={index}>
-              {itemObj.item} -
-              ₹{itemObj.price}
+              {itemObj.item} -Quantity: {itemObj.quantity}-₹{itemObj.price}
             </li>
           ))}
         </ul>
       )}
+      </>
+        }
+        />
+        <Route path="/history" element={<OrderHistory/>}/>
+        </Routes>
     </div>
+    </Router>
   );
 }
 export default App;

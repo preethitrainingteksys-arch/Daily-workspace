@@ -4,6 +4,7 @@ function OrderForm({ addedItems,addItemToList,clearItems})
 {
     const[item,setItem]=useState("");
     const[price,setPrice]=useState("");
+    const [quantity, setQuantity] = useState("1");
     const handleAddItem = () => {
 
     addItemToList({
@@ -13,6 +14,7 @@ function OrderForm({ addedItems,addItemToList,clearItems})
 
     setItem("");
     setPrice("");
+    setQuantity("1");
   };
 
     const handleSubmit=async(e)=>{
@@ -28,9 +30,10 @@ function OrderForm({ addedItems,addItemToList,clearItems})
         item: item,
         price: price
       });
-      clearItems("");
+      clearItems();
         setItem("");
         setPrice("");
+        setQuantity("1");
     }
     catch (error) {
       console.log("Full error:", error);
@@ -56,12 +59,26 @@ return(
             value={price}
             onChange={(e)=>setPrice(e.target.value)}
             placeholder="Enter amount"
-
-            />
+          />
+          <div>
+        <label>Quantity</label>
+        <select
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
+        >
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
             <br/>
-            <button type="button" onClick={handleAddItem}>Add Item</button>
+            <div className="button-group">
+            <button type="button" className="add-btn" onClick={handleAddItem}>Add Item</button>
         </div>
         <button type="submit">Submit</button>
+        </div>
 
     </form>
     
